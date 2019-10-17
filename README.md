@@ -12,7 +12,11 @@ This system is to use DMA to transfer data and labels into hardware and do some 
 
 ![](images/buffer_lock_system.jpg)
 
-Now, let's use emulation to find the bugs. As the emulation does not support the Utral-96v2 yet, we tempararily create a ZCU102 board project to do the emulation as below. Make sure you use `Linux 
+Now, let's use emulation to find the bugs. As the emulation does not support the Utral-96v2 yet, we tempararily create a ZCU102 board project to do the emulation as below. Make sure you use `Linux
+
+
+![](images/zcu102_bufferlock.jpg)
+
 
 
 
