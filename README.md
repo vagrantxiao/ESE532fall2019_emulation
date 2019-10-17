@@ -6,7 +6,7 @@ SDSoC is an excellent tool for SoC design. It exclude a lot of gluing logic desi
 
 
 # Buffer Lock Example
-Include all the source code under ./examples/BufferLock/ into SDSoC. Move the 'loss_HW' into hardware as figure below.
+Include all the source code under ./examples/BufferLock/ into SDSoC. Move the `loss_HW` into hardware as figure below.
 
 
 
