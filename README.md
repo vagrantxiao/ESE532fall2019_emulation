@@ -12,14 +12,21 @@ This system is to use DMA to transfer data and labels into hardware and do some 
 
 ![](images/buffer_lock_system.jpg)
 
+
+## Emulation for the Buffer Lock
 Now, let's use emulation to find the bugs. As the emulation does not support the Utral-96v2 yet, we tempararily create a ZCU102 board project to do the emulation as below. Make sure you use `A53 Linux` as the System configuration. Choose Target as `Emulation`.
 
 
 ![](images/zcu102_bufferlock.jpg)
 
 
+After the compilation, we can open the hardware reports to see how the function and interface is implemented. From the report, we can see that the interface between `norm` and `square_loss` are 2 fifos, corresponding to `hls:stream` interfaces in software.
+
+In the SDSoC, click `Xilinx->Start/Stop emulation`
 
 
+
+ 
 
 
 
