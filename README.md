@@ -1,11 +1,11 @@
 # ESE532fall2019_emulation
 This repo is to show you how to use simulation and emulation to debug your code.
 
-# Description
+## 1. Description
 SDSoC is an excellent tool for SoC design. It excludes a lot of gluing logic design between hardware and software. The designers can focus on some high- level architecture design. However, it abstracts away some essential details, which is bad for debugging. Nevertheless, it offers you some methods, by which you can do some low-level debugging. Emulation is one of the useful tools, which we will focus on in the following sections.
 
 
-# Buffer Lock Example
+## 2. Buffer Lock Example
 Include all the source code under ./examples/BufferLock/ into SDSoC. Move the `loss_HW` into hardware as figure below.
 ![](images/bufferLockConfig.jpg)
 This system is to use DMA to transfer data and labels into hardware and do some calculations and return the data back into DDR ram. We will use `hls:stream` data type to connect the module `norm` and `square_loss`. If you create a `vivado_HLS` project and do the C simulation, it should run without any errors. However, if you compile it in the SDSoC, you will get nothing when downloading it into the board.  
@@ -13,7 +13,7 @@ This system is to use DMA to transfer data and labels into hardware and do some 
 ![](images/buffer_lock_system.jpg)
 
 
-## Emulation for the Buffer Lock
+### 2.1 Emulation for the Buffer Lock
 Now, let's use emulation to find the bugs. As the emulation does not support the Utral-96v2 yet, we temporarily create a ZCU102 project to do the emulation as below. Make sure you use `A53 Linux` as the System configuration. Choose Target as `Emulation`.
 
 
@@ -37,7 +37,7 @@ Repeat the emulation after we completed the compilation. Add the signals we are 
 ![](images/nobufferlock.jpg)
 
 
-## Simulation for the Buffer Lock
+### 2.2 Simulation for the Buffer Lock
 Simulation is another quick way to debug. I think most of you used the C simulation in `vivado_hls`. We can also do the C/RTL co-simulation for debugging. It can give you some clues for the deadlock, but it is limited and can do nothing for the DMA related deadlock which is the real bottleneck for the project. However, it is faster and can give you quick hints.
 Now let's create a `vivado_hls` project and add the buggy code into the project. After you compile your hardware, you will get a `Synthesis Report for 'loss_HW'. At this time, click `Solution-> Run C/RTL cosimulation`. Choose `Vivado Simulator for the `Verilog/VHDL Simulator Selection`, and choose `all` for the `Dump Trace`, then click `run`. For most cases, you can get `Pass`, if your code looks plausible. However, for this case, we get `ERROR!!! DEADLOCK DETECTED at 284950000 ns! SIMULATION WILL BE STOPPED!` . Now open the wave view by clicking the wave button as below and the `vivado` will jump out. Similar to emulation, you can add the important signals to the waveviewer. For this case, you may find `vivado_hls` seems to run faster than emulation. However, in most cases, `vivado_hls` may not find the bugs at all. Even with limited usage, it is a faster debugging tool, and we can quick start from this and do some quick debugging. If it does not work, go back to emulation, which is closest to the reality. 
 
