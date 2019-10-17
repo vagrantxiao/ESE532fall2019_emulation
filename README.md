@@ -1,5 +1,5 @@
 # ESE532fall2019_emulation
-This repo is to show you how to use simulation and emulation to debug your code.
+This repo is to show you how to use simulation and [emulation](https://github.com/Xilinx/SDSoC-Tutorials/blob/master/getting-started-tutorial/lab-8-emulation.md) to debug your code.
 
 ## 1. Description
 SDSoC is an excellent tool for SoC design. It excludes a lot of gluing logic design between hardware and software. The designers can focus on some high- level architecture design. However, it abstracts away some essential details, which is bad for debugging. Nevertheless, it offers you some methods, by which you can do some low-level debugging. Emulation is one of the useful tools, which we will focus on in the following sections.
@@ -15,9 +15,7 @@ This system is to use DMA to transfer data and labels into hardware and do some 
 
 ![](images/buffer_lock.jpg)
 
-Eylon Caspi, Andr´e DeHon, and John Wawrzynek. Stream computations organized for reconfigurable execution (SCORE): Introduction and tutorial. In FPL, Lecture Notes in Computer Science. Springer Verlag, 2000
-
-### 2.1 Emulation for the Buffer Lock
+### 2.1 [Emulation](https://github.com/Xilinx/SDSoC-Tutorials/blob/master/getting-started-tutorial/lab-8-emulation.md) for the Buffer Lock
 Now, let's use emulation to find the bugs. As the emulation does not support the Utral-96v2 yet, we temporarily create a ZCU102 project to do the emulation as below. Make sure you use `A53 Linux` as the System configuration. Choose Target as `Emulation`.
 
 
