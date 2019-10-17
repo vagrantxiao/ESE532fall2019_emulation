@@ -42,7 +42,7 @@ Simulation is another quick way to debug. I think most of you used the C simulat
 Now let's create a `vivado_hls` project and add the buggy code into the project. After you compile your hardware, you will get a `Synthesis Report for 'loss_HW'. At this time, click `Solution-> Run C/RTL cosimulation`. Choose `Vivado Simulator for the `Verilog/VHDL Simulator Slelection`, and choose `all` for the `Dump Trace`, then click `run`. For most cases, you can get `Pass`, if your code looks plausbile. However, for this case, we get `ERROR!!! DEADLOCK DETECTED at 284950000 ns! SIMULATION WILL BE STOPPED!` Now open it by click the wave button as below and `vivado` will jump out. Similar to emulation, you can add the important signals to the waveview. For this case, you may find `vivado_hls` seems to run faster than emulation. However, in most cases, `vivado_hls` may not find the bugs at all. Even for the limited usage, it is faster. Hence, we can quick start from this and do some quick debugging. If it does not work, go back to emulation, which is closest to the reality. 
 
 
-![](hls_deadlock.jpg)
+![](images/hls_deadlock.jpg)
 
 
 Now, think about some ways to decrease the fifi size for X_norm. A lot of tricks you can use. The goal of this crappy architecture is just to show you how to debug the deadlock. We want to remind you that it is quite common that you create some fency architectures, the II is 1 and everthing is perfectly orchestrated. Downloading your bitstreams into your hardware, then you got just nothing. Don't be panic! Use emulation!
