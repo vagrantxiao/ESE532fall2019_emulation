@@ -7,8 +7,7 @@ SDSoC is an excellent tool for SoC design. It exclude a lot of gluing logic desi
 
 # Buffer Lock Example
 Include all the source code under ./examples/BufferLock/ into SDSoC. Move the `loss_HW` into hardware as figure below.
-
-
-
-
 ![](images/bufferLockConfig.jpg)
+This system is to use DMA to transfer data and labels into hardware and do some calculations and return the data back into DDR ram. We will use `hls:stream` data type to connect the  
+
+![](images/buffer_lock_system.jpg)
