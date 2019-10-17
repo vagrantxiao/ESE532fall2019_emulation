@@ -11,4 +11,4 @@ Include all the source code under ./examples/BufferLock/ into SDSoC. Move the da
 
 
 
-![]images/bufferLockConfig.jpg]
+![](images/bufferLockConfig.jpg)
