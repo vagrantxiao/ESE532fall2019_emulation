@@ -8,9 +8,11 @@ SDSoC is an excellent tool for SoC design. It excludes a lot of gluing logic des
 ## 2. Buffer Lock Example
 Include all the source code under ./examples/BufferLock/ into SDSoC. Move the `loss_HW` into hardware as figure below.
 ![](images/bufferLockConfig.jpg)
+
+
 This system is to use DMA to transfer data and labels into hardware and do some calculations and return the data back into DDR ram. We will use `hls:stream` data type to connect the module `norm` and `square_loss`. If you create a `vivado_HLS` project and do the C simulation, it should run without any errors. However, if you compile it in the SDSoC, you will get nothing when downloading it into the board.  
 
-![](images/buffer_lock_system.jpg)
+![](images/buffer_lock.jpg)
 
 
 ### 2.1 Emulation for the Buffer Lock
@@ -25,11 +27,11 @@ After the compilation, we can open the hardware reports to see how the function 
 
 
 
-In the SDSoC, click `Xilinx->Start/Stop emulation`. A `vivado` software would jump out. Choose the signals you are interested in. Here we choose the IO of `X_norm_V_U` and `LABEL_norm_V_U`. Click run on the `vivado` side, and launch emulation on the SDSoC side. The fifo's full signal is asserted, but we did not see and input for the label_norm. 
+In the SDSoC, click `Xilinx->Start/Stop emulation`. A `vivado` software would jump out. Choose the signals you are interested in. Here we choose the IO of `X_norm_V_U` and `LABEL_norm_V_U`. Click run on the `vivado` side, and launch emulation on the SDSoC side. The fifo's full signal is asserted, but we did not see any input for the label_norm. 
 
 ![](images/fifo_full.jpg)
 
-We go back to look at the code. We can see the moudle `norm` is trying to send 4096 data X_norm and 128 data Label_norm to module `square_loss`. Here we intentionally set the module `sqaure_loss` to read data Label_norm first, so that a buffer lock shows up. In practice, 2 modules may have unbalanced inputs and we don't know which outputs would send more data into the channel fifo. Therefore, this buffer lock can be eliminated by increasing the buffer size. We may increase the fifo to 4096 to make sure it can store all the data, even when the consumer does not accept any data. At this time. the fifo for Label_norm does not need to be equal to 128. Here we keep it as 32. Then, compile the code.
+We go back to look at the code. We can see the moudle `norm` is trying to send 4096 data X_norm and 128 data Label_norm to module `square_loss`. Here we intentionally set the module `sqaure_loss` to read data Label_norm first, so that a buffer lock shows up. In practice, a consumer module may have unbalanced inputs and we don't know which outputs of the producer module would send more data into the channel fifo. Therefore, this buffer lock can be eliminated by increasing the buffer size. We may increase the fifo to 4096 to make sure it can store all the data, even when the consumer does not accept any data. At this time. the fifo for Label_norm does not need to be equal to 128. Here we keep it as 32. Then, compile the code.
 
  
 Repeat the emulation after we completed the compilation. Add the signals we are interested in and run it again. We can see after the X_norm is moved into the fifo, the Label_norm is transferred by the fifo channel. The producer and consumer are working together, which can save use some channel space for Label_norm.
