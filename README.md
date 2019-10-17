@@ -22,9 +22,12 @@ Now, let's use emulation to find the bugs. As the emulation does not support the
 
 After the compilation, we can open the hardware reports to see how the function and interface is implemented. From the report, we can see that the interface between `norm` and `square_loss` are 2 fifos, corresponding to `hls:stream` interfaces in software.
 
-In the SDSoC, click `Xilinx->Start/Stop emulation`
 
 
+
+In the SDSoC, click `Xilinx->Start/Stop emulation`. A `vivado` software would jump out. Choose the signals you are interested in. Here we choose the IO of `X_norm_V_U` and `LABEL_norm_V_U`. Click run in the `vivado` side, and launch emulation in the software side. The fifo's full signal is asserted, but we did not see and input for the label_norm. 
+
+![](images/fifo_full.jpg)
 
  
 
