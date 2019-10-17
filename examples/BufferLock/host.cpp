@@ -90,7 +90,7 @@ static int result_check(float Loss_SW[BATCH_SIZE], float Loss_HW[BATCH_SIZE])
 {
      for (int i = 0; i < BATCH_SIZE; i++)
      {
-		if (Loss_SW[i] != Loss_HW[i])
+		if ((Loss_SW[i]-Loss_HW[i])/Loss_HW[i]>0.01 || (Loss_SW[i]-Loss_HW[i])/Loss_HW[i]<-0.01)
 		{
 			std::cout << "Mismeatch: data index=" << i << " d=" << Loss_SW[i]
 					  << ", dout=" << Loss_HW[i] << std::endl;
