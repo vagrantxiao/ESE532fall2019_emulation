@@ -19,10 +19,12 @@ void norm(		float X[BATCH_SIZE*FEATURE_SIZE],
 			X_buffer[i][j] = X[i*FEATURE_SIZE+j];
 		}
 	}
-
+	
+	//BATCH_SIZE = 128
 	for (int i=0; i<BATCH_SIZE; i++)
 	{
 		sum = 0;
+		//FEATURE_SIZE = 32
 		for (int j=0; j<FEATURE_SIZE; j++)
 		{
 			sum += X_buffer[i][j]*X_buffer[i][j];
@@ -34,6 +36,7 @@ void norm(		float X[BATCH_SIZE*FEATURE_SIZE],
 		}
 	}
 
+	//BATCH_SIZE = 128
 	for (int i=0; i<BATCH_SIZE; i++)
 	{
 		if(LABEL[i] > 0)
