@@ -10,16 +10,8 @@ Include all the source code under ./examples/BufferLock/ into SDSoC. Move the `l
 ![](images/bufferLockConfig.jpg)
 
 
-This system is to use DMA to transfer data and labels into hardware and do some calculations and return the data back into DDR ram. We will use `hls:stream` data type to connect the module `norm` and `square_loss`. If you create a `vivado_HLS` project and do the C simulation, it should run without any errors. However, if you compile it in the SDSoC, you will get nothing when downloading it into the board.  
-[I'm an inline-style link](https://www.google.com)
+This system is to use DMA to transfer data and labels into hardware and do some calculations and return the data back into DDR ram. We will use `hls:stream` data type to connect the module `norm` and `square_loss`. When different modules are connected by [stream interface](https://link.springer.com/chapter/10.1007/3-540-44614-1_65), it is good for hierachical pipeline. If you create a `vivado_HLS` project and do the C simulation, it should run without any errors. However, if you compile it in the SDSoC, you will get nothing when downloading it into the board.  
 
-[I'm an inline-style link with title](https://www.google.com "Google's Homepage")
-
-[I'm a reference-style link][Arbitrary case-insensitive reference text]
-
-[I'm a relative reference to a repository file](../blob/master/LICENSE)
-
-[You can use numbers for reference-style link definitions][1]
 
 ![](images/buffer_lock.jpg)
 
