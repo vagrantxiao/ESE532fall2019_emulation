@@ -1,11 +1,11 @@
 # ESE532fall2019_emulation
 This repo is to show you how to use simulation and [emulation](https://github.com/Xilinx/SDSoC-Tutorials/blob/master/getting-started-tutorial/lab-8-emulation.md) to debug your code.
 
-## 1. Description
+## 1 Description
 SDSoC is an excellent tool for SoC design. It excludes a lot of gluing logic design between hardware and software. The designers can focus on some high- level architecture design. However, it abstracts away some essential details, which is bad for debugging. Nevertheless, it offers you some methods, by which you can do some low-level debugging. Emulation is one of the useful tools, which we will focus on in the following sections.
 
 
-## 2. Buffer Lock Example
+## 2 Buffer Lock Example
 Include all the source code under ./examples/BufferLock/ into SDSoC. Move the `loss_HW` into hardware as figure below.
 ![](images/bufferLockConfig.jpg)
 
@@ -65,7 +65,17 @@ Now let's create a `vivado_hls` project and add the buggy code into the project.
 
 Now, think about some ways to decrease the fifi size for X_norm. A lot of tricks you can use. The goal of this crappy architecture is just to show you how to debug the deadlock. We want to remind you that it is quite common that you create some fency architectures, the II is 1 and everthing is perfectly orchestrated. Downloading your bitstreams into your hardware, then you got just nothing. Don't be panic! Use emulation!
 
+## 3 Solutions
+The problem is that the unbalanced data transmission between 2 data channel.
 
+### 3.1 Change the loop order
+We can move the loop for Label_norm before X_norm.
+
+### 3.2 Change the buffer size
+We can increase the fifo size to 4096 for X_norm.
+
+### 3.3 Dafeflow pragma
+We can also use `dataflow` pragam, so that the producer can send data out currently. 
 
 
 
