@@ -47,7 +47,7 @@ In the SDSoC, click `Xilinx->Start/Stop emulation`. A `vivado` software would ju
 
 ![](images/fifo_full.jpg)
 
-We go back to look at the [code](/examples/BufferLock/loss_HW.cpp). We can see the moudle `norm` is trying to send 4096 data X_norm and 128 data Label_norm to module `square_loss`. Here we intentionally set the module `sqaure_loss` to read data Label_norm first, so that a buffer lock shows up. In practice, a consumer module may have unbalanced inputs and we don't know which outputs of the producer module would send more data into the channel fifo. Therefore, this buffer lock can be eliminated by increasing the buffer size. We may increase the fifo to 4096 to make sure it can store all the data, even when the consumer does not accept any data. At this time. the fifo for Label_norm does not need to be equal to 128. Here we keep it as 32. Then, compile the code.
+We go back to look at the [code](examples/BufferLock/buggy_code/BufferLock/loss_HW.cpp). We can see the moudle `norm` is trying to send 4096 data X_norm and 128 data Label_norm to module `square_loss`. Here we intentionally set the module `sqaure_loss` to read data Label_norm first, so that a buffer lock shows up. In practice, a consumer module may have unbalanced inputs and we don't know which outputs of the producer module would send more data into the channel fifo. Therefore, this buffer lock can be eliminated by increasing the buffer size. We may increase the fifo to 4096 to make sure it can store all the data, even when the consumer does not accept any data. At this time. the fifo for Label_norm does not need to be equal to 128. Here we keep it as 32. Then, compile the code.
 
  
 Repeat the emulation after we completed the compilation. Add the signals we are interested in and run it again. We can see after the X_norm is moved into the fifo, the Label_norm is transferred by the fifo channel. The producer and consumer are working together, which can save use some channel space for Label_norm.
@@ -68,14 +68,16 @@ Now, think about some ways to decrease the fifi size for X_norm. A lot of tricks
 ## 3 Solutions
 The problem is that the unbalanced data transmission between 2 data channel.
 
-### 3.1 Change the loop order
+
+
+### 3.1 [Change the loop order](examples/BufferLock/solution1/)
 We can move the loop for Label_norm before X_norm.
 
-### 3.2 Change the buffer size
+### 3.2 [Change the buffer size](examples/BufferLock/solution2/)
 We can increase the fifo size to 4096 for X_norm.
 
-### 3.3 Dafeflow pragma
-We can also use `dataflow` pragam, so that the producer can send data out currently. 
+### 3.3 [Dafeflow pragma](examples/BufferLock/solution3/)
+We can also use [dataflow](https://www.xilinx.com/html_docs/xilinx2017_4/sdaccel_doc/sxx1504034358866.html) pragam, so that the producer can send data out currently. 
 
 
 
